@@ -1,0 +1,77 @@
+.container{
+    width: 702px;
+    height: 112px;
+    border-bottom: solid 1px #EEE;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    .label{
+        margin-left: 48px;
+        position: relative;
+        font-size: 30px;
+        color: #333;
+        font-weight: bold;
+        width: 270px;
+        margin-right: 8px;
+        &::before{
+            content: '*';
+            position: absolute;
+            left: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 30px;
+            line-height: 40px;
+            color: #E11C1C;
+            font-size: 30px;
+        }
+    }
+    .options{
+        margin-left: 24px;
+        flex: 1;
+        height: 80px;
+        line-height: 80px;
+        .radio{
+            display: none;
+        }
+        .radio + label{
+            position: relative;  
+            padding-left: 40px;  
+            cursor: pointer;  
+            vertical-align: middle;
+            color: #333;
+            font-size: 30px;
+            &:last-child{
+                margin-left: 80px;
+            }
+        }
+        .radio + label::before{
+            position: absolute;  
+            top: 50%;
+            transform: translateY(-50%);  
+            left: 0;   
+            display: inline-block;  
+            width: 30px;  
+            height: 30px;  
+            content: '';  
+            border: 2px solid #F4B617;
+            border-radius: 50%;
+            box-sizing: border-box;
+        }
+        .radio:checked + label::before{
+            box-sizing: border-box;
+            position: absolute;  
+            top: 50%;
+            transform: translateY(-50%);  
+            left: 0;   
+            display: inline-block;  
+            width: 30px;  
+            height: 30px;  
+            content: '';  
+            border-radius: 50%;
+            padding: 3px;
+            background-color: #F4B617;
+            background-clip: content-box;
+        }
+    }
+}

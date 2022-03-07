@@ -1,0 +1,50 @@
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 5
+      maxUnavailable: 0
+  template:
+    spec:
+      dnsConfig:
+        options:
+          - name: single-request-reopen
+          - name: ndots
+            value: "2"
+      containers:
+        - name: ${project.artifactId}
+          env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+          volumeMounts:
+            - name: log
+              mountPath: /var/log/containers
+          imagePullPolicy: Always
+          resources:
+          requests:
+              cpu: 100m
+              memory: 1024Mi
+          limits:
+            cpu: "3000m"
+            memory: "1024Mi"
+          livenessProbe:
+            httpGet:
+              path: /liveness.txt
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /readiness.txt
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 10
+      volumes:
+        - name: log
+          hostPath:
+            path: /var/log/containers
+      imagePullSecrets:
+        - name: harbor-xxms-key
